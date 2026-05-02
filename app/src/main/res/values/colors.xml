@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="water_blue_primary">#FF1976D2</color>
+    <color name="water_blue_light">#FF64B5F6</color>
+    <color name="water_blue_dark">#FF0D47A1</color>
+    <color name="nature_green_primary">#FF388E3C</color>
+    <color name="nature_green_light">#FF81C784</color>
+    <color name="nature_green_dark">#FF1B5E20</color>
+    <color name="surface_light">#FFF5F9FF</color>
+    <color name="on_surface">#FF1C1B1F</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>

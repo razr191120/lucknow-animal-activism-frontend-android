@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lucknow Water Bowl</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="drives">Drives</string>
+    <string name="record">Record</string>
+    <string name="route">Route</string>
+    <string name="gallery">Gallery</string>
+    <string name="total_distributions">Total Distributions</string>
+    <string name="active_drives">Active Drives</string>
+    <string name="total_bowls_placed">Total Bowls Placed</string>
+    <string name="create_drive">Create Drive</string>
+    <string name="drive_name">Drive Name</string>
+    <string name="drive_description">Description</string>
+    <string name="addresses">Addresses</string>
+    <string name="add_address">Add Address</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="name_label">Name</string>
+    <string name="contact_label">Contact</string>
+    <string name="description_label">Description</string>
+    <string name="address_label">Address</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="water_bowl_photo">Water Bowl Photo</string>
+    <string name="owner_photo">Owner Photo</string>
+    <string name="select_drive">Select Drive</string>
+    <string name="optimize_route">Optimize Route</string>
+    <string name="geocode_addresses">Geocode Addresses</string>
+    <string name="recent_distributions">Recent Distributions</string>
+    <string name="no_data">No data available</string>
+    <string name="loading">Loading…</string>
+    <string name="error_occurred">An error occurred</string>
+    <string name="retry">Retry</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="camera_permission_text">Camera permission is needed to take photos</string>
+    <string name="location_permission_text">Location permission is needed to record GPS coordinates</string>
+</resources>
