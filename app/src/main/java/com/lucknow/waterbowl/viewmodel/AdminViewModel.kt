@@ -2,6 +2,7 @@ package com.lucknow.waterbowl.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucknow.waterbowl.data.api.ApiExceptionMapper
 import com.lucknow.waterbowl.data.api.RetrofitClient
 import com.lucknow.waterbowl.data.models.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,23 +34,34 @@ class AdminViewModel : ViewModel() {
     fun loadUsers() {
         viewModelScope.launch {
             _isLoading.value = true
-            try { _users.value = api.adminGetUsers() }
-            catch (e: Exception) { _error.value = e.message }
-            _isLoading.value = false
+            _error.value = null
+            try {
+                _users.value = api.adminGetUsers()
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 
     fun loadDrives() {
         viewModelScope.launch {
-            try { _drives.value = api.getDrives() }
-            catch (e: Exception) { _error.value = e.message }
+            try {
+                _drives.value = api.getDrives()
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 
     fun loadDistributions() {
         viewModelScope.launch {
-            try { _distributions.value = api.getDistributions() }
-            catch (e: Exception) { _error.value = e.message }
+            try {
+                _distributions.value = api.getDistributions()
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 
@@ -59,7 +71,9 @@ class AdminViewModel : ViewModel() {
                 api.adminCreateUser(SignupRequest(email, fullName, password))
                 _message.value = "User created"
                 loadUsers()
-            } catch (e: Exception) { _error.value = e.message }
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 
@@ -69,7 +83,9 @@ class AdminViewModel : ViewModel() {
                 val newRole = if (user.isAdmin) "member" else "admin"
                 api.adminUpdateUser(user.id, UserUpdateRequest(role = newRole))
                 loadUsers()
-            } catch (e: Exception) { _error.value = e.message }
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 
@@ -78,7 +94,9 @@ class AdminViewModel : ViewModel() {
             try {
                 api.adminUpdateUser(user.id, UserUpdateRequest(isActive = !user.isActive))
                 loadUsers()
-            } catch (e: Exception) { _error.value = e.message }
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 
@@ -88,7 +106,9 @@ class AdminViewModel : ViewModel() {
                 api.adminDeleteUser(userId)
                 _message.value = "User deleted"
                 loadUsers()
-            } catch (e: Exception) { _error.value = e.message }
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 
@@ -98,7 +118,9 @@ class AdminViewModel : ViewModel() {
                 api.adminDeleteDrive(driveId)
                 _message.value = "Drive deleted"
                 loadDrives()
-            } catch (e: Exception) { _error.value = e.message }
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 
@@ -108,7 +130,9 @@ class AdminViewModel : ViewModel() {
                 api.adminDeleteDistribution(distId)
                 _message.value = "Distribution deleted"
                 loadDistributions()
-            } catch (e: Exception) { _error.value = e.message }
+            } catch (e: Exception) {
+                _error.value = ApiExceptionMapper.userMessage(e)
+            }
         }
     }
 

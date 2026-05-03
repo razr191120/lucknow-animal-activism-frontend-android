@@ -19,6 +19,7 @@ android {
             useSupportLibrary = true
         }
 
+        // Debug / default: Android emulator → host machine localhost
         buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8000\"")
     }
 
@@ -29,7 +30,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8000\"")
+            // Production API (FastAPI); paths in ApiService are relative to this host
+            buildConfigField("String", "BASE_URL", "\"https://be.lwbp.graitech.in\"")
+            // CI / sideload: sign with debug keystore unless you override with a release keystore
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 

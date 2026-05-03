@@ -2,6 +2,7 @@ package com.lucknow.waterbowl.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucknow.waterbowl.data.api.ApiExceptionMapper
 import com.lucknow.waterbowl.data.api.RetrofitClient
 import com.lucknow.waterbowl.data.models.Distribution
 import com.lucknow.waterbowl.data.models.Stats
@@ -41,7 +42,7 @@ class DashboardViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = e.message ?: "Failed to load dashboard"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }

@@ -2,6 +2,7 @@ package com.lucknow.waterbowl.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucknow.waterbowl.data.api.ApiExceptionMapper
 import com.lucknow.waterbowl.data.api.RetrofitClient
 import com.lucknow.waterbowl.data.models.CreateDriveRequest
 import com.lucknow.waterbowl.data.models.Drive
@@ -42,7 +43,7 @@ class DrivesViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = e.message ?: "Failed to load drives"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }
@@ -60,7 +61,7 @@ class DrivesViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = e.message ?: "Failed to load drive details"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }
@@ -85,7 +86,7 @@ class DrivesViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isCreating = false,
-                    error = e.message ?: "Failed to create drive"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }

@@ -2,6 +2,7 @@ package com.lucknow.waterbowl.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucknow.waterbowl.data.api.ApiExceptionMapper
 import com.lucknow.waterbowl.data.api.RetrofitClient
 import com.lucknow.waterbowl.data.models.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -73,7 +74,7 @@ class RouteViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isGeocoding = false,
-                    error = e.message ?: "Geocoding failed"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }
@@ -106,7 +107,7 @@ class RouteViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isOptimizing = false,
-                    error = e.message ?: "Route optimization failed"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }

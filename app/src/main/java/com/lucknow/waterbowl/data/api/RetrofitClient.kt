@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+/** Retrofit singleton; [BuildConfig.BASE_URL] is debug emulator vs release production host. */
 object RetrofitClient {
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {

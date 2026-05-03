@@ -2,6 +2,7 @@ package com.lucknow.waterbowl.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucknow.waterbowl.data.api.ApiExceptionMapper
 import com.lucknow.waterbowl.data.api.RetrofitClient
 import com.lucknow.waterbowl.data.auth.AuthManager
 import com.lucknow.waterbowl.data.models.LoginRequest
@@ -32,7 +33,7 @@ class AuthViewModel : ViewModel() {
                 AuthManager.setAuth(response.accessToken, response.user)
                 _authSuccess.value = true
             } catch (e: Exception) {
-                _error.value = e.message ?: "Login failed"
+                _error.value = ApiExceptionMapper.userMessage(e)
             }
             _isLoading.value = false
         }
@@ -47,7 +48,7 @@ class AuthViewModel : ViewModel() {
                 AuthManager.setAuth(response.accessToken, response.user)
                 _authSuccess.value = true
             } catch (e: Exception) {
-                _error.value = e.message ?: "Signup failed"
+                _error.value = ApiExceptionMapper.userMessage(e)
             }
             _isLoading.value = false
         }

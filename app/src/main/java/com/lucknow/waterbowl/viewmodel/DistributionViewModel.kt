@@ -3,6 +3,7 @@ package com.lucknow.waterbowl.viewmodel
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lucknow.waterbowl.data.api.ApiExceptionMapper
 import com.lucknow.waterbowl.data.api.RetrofitClient
 import com.lucknow.waterbowl.data.models.Distribution
 import com.lucknow.waterbowl.data.models.Drive
@@ -59,7 +60,7 @@ class DistributionViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    error = e.message ?: "Failed to load distributions"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }
@@ -70,7 +71,11 @@ class DistributionViewModel : ViewModel() {
             try {
                 val drives = api.getDrives()
                 _uiState.value = _uiState.value.copy(drives = drives)
-            } catch (_: Exception) { }
+            } catch (e: Exception) {
+                _uiState.value = _uiState.value.copy(
+                    error = ApiExceptionMapper.userMessage(e)
+                )
+            }
         }
     }
 
@@ -154,7 +159,7 @@ class DistributionViewModel : ViewModel() {
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(
                     isSubmitting = false,
-                    error = e.message ?: "Failed to submit distribution"
+                    error = ApiExceptionMapper.userMessage(e)
                 )
             }
         }
