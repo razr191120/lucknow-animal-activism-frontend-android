@@ -1,6 +1,8 @@
 package com.lucknow.waterbowl.data.api
 
 import com.lucknow.waterbowl.BuildConfig
+import com.lucknow.waterbowl.data.auth.AuthManager
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +19,21 @@ object RetrofitClient {
         }
     }
 
+    private val authInterceptor = Interceptor { chain ->
+        val original = chain.request()
+        val token = AuthManager.token.value
+        val request = if (token != null) {
+            original.newBuilder()
+                .header("Authorization", "Bearer $token")
+                .build()
+        } else {
+            original
+        }
+        chain.proceed(request)
+    }
+
     private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor(authInterceptor)
         .addInterceptor(loggingInterceptor)
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
